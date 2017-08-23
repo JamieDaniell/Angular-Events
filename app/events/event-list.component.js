@@ -30,9 +30,19 @@ System.register(['angular2/core', './event-filter.pipe', '../shared/thumb.compon
                 router_1 = router_1_1;
             }],
         execute: function() {
+            // styleUrls = add styles 
+            // pipes ~ like filters taken from the event-filter.pipe.ts
             EventListComponent = (function () {
+                // typescript --> every class has a constructor that runs when the class is created
+                // so if we want to inject 
+                // dependancy injection creates an instance of myService
+                // class receives the instance of the service it needs ( dependencies )
+                // can make a variable to hold the injected service i.e - private: -eventservice 
+                // then set the value in the constructor --> _eventService = eventService
+                // but shorthand define in the constructor definition
                 function EventListComponent(_eventService) {
                     this._eventService = _eventService;
+                    // page title is bound to the read only interpolation variable {{pageTitle}}
                     this.pageTitle = '+ Event List +';
                     this.imageWidth = 50;
                     this.imageMargin = 2;
@@ -41,11 +51,13 @@ System.register(['angular2/core', './event-filter.pipe', '../shared/thumb.compon
                 EventListComponent.prototype.toggleImage = function () {
                     this.showImage = !this.showImage;
                 };
+                // what happens when init
                 EventListComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._eventService.getEvents()
                         .subscribe(function (events) { return _this.events = events; }, function (error) { return _this.errorMessage = error; });
                 };
+                // when notify occurs from the thumb event emitter the onRatingClicked function is calles with the event argument
                 EventListComponent.prototype.onRatingClicked = function (message) {
                     this.pageTitle = 'Event List: ' + message;
                 };

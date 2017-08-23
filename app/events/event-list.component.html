@@ -3,6 +3,9 @@
         {{pageTitle}}
     </div>
 	<!-- Search the Events   -->
+	<!-- ngModel in square brackets to indicate property binding-->
+    <!-- biind ngModel to searchCriteria-->
+    <!-- ng model binds data from the DOM to the component-->
     <div class='panel-body'>
         <div class='row'>
             <div class='col-md-2'>Search by:</div>
@@ -18,11 +21,20 @@
         </div>
 		
 	</div>
+	<!--structural directives such as *ngIf and *ngFor-->
+	<!--* before a name indicates that it is a structural directive-->
+	<!--*ngIf if the expression results in false then the expression and its children are removed from the DOM-->
+	<!--if true the expression and its children are re-inserted into the DOM-->
+	<!-- use a javascript conditional operator-->
+    <!-- when showImage is true then display Hide : else if false 'Show'-->
 	<div class='table-responsive'>
+	    <!--if there is an event put a table in-->
         <table class='table' *ngIf='events && events.length'>
             <thead>
                 <tr>
                     <th>
+                        <!-- the page listens for the target event . click here and then performs a function: toggleImage() -->
+                        <!-- if click run function-->
                         <button class='btn btn-primary'
                             (click)='toggleImage()'>
                             {{showImage ? 'Hide' : 'Show'}} Images
@@ -36,8 +48,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor='#event of events | eventFilter:searchCriteria'>
+                <!--another structiural directive is *ngFor repeates a portion of the DOM tree once for each item in a list-->
+                <!--define the table row an each point in the table -->
+                <!--# deifnes variable as a local variable-->
+                <!-- here the events are filted by the pipe we defined in event-fileter.pipe.ts -->
+                <tr *ngFor='#event of events | eventFilter:searchCriteria'> 
+                    <!--add a row for each event element-->
                     <td>
+                         <!-- property binding [] allows us to set the property of an element to the value of a template expression-->
+                         <!-- i.e below [src] below -->
+                         <!--can use <img src={{event.imageUrl}}-->
+                         <!-- *ngIf only if showImage form above and the component is true-->
                         <img *ngIf='showImage'
                              [src]='event.imageUrl'
                              [title]='event.name'
@@ -45,13 +66,27 @@
                              [style.margin.px]='imageMargin'>
                     </td>
                     <td>
+                        <!--{{}}: interplation to get event name-->
+                        <!-- also uses the router link to set the route for the <a> tags url -->
+                        <!-- the id is taken from the event object taken from the *ngFor  -->
+                        <!-- passed as part of the argumentns array -->
+                        <!-- The first part is the route parameter -->
+                        <!-- the second is the object deifing the route parameter -->
                         <a [routerLink]="['EventDetail', {id: event.code}]"> {{event.name}} </a>
                     </td>
+                    <!--{{}}: interplation to get event property-->
+                    <!-- uses pipes here send event.code to lowercase-->
+                    <!-- pipes to currency using paramenters 1. the destired currency , whether to display it , and the idgits to dispalay ( fractions etc) -->
                     <td>{{event.code | lowercase}}</td>
                     <td>{{event.date}}</td>
                     <td>{{event.fee | currency:'USD':true:'1.2-2' }}</td>
                     <td>
+                        <!-- link to the thumb.component.ts directive-->
+                        <!-- we want thumbs up instead of rating number-->
+                        <!-- send the event.rating to the rating @input in the thumb.component.ts-->
+                        <!-- on rating clicked passed from the thumb coponent the function onRatingClicked(ev) is run-->
                         <acw-thumb [rating]='event.rating'
+                            
                             (ratingClicked)='onRatingClicked($event)'>
                         </acw-thumb>
                     </td>

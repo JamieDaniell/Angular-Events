@@ -18,13 +18,21 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
+            // defines a class as a pipe 
+            // filters results
+            // for use in a template to pipe results
+            // pipe decorator 
             EventFilterPipe = (function () {
                 function EventFilterPipe() {
                 }
+                // get the string value to filter by 
+                // if there is a filter value then filter the list 
+                // otherwise there is no value so return full list of events 
+                // arrow sytax defines the filter function
                 EventFilterPipe.prototype.transform = function (value, args) {
                     var filter = args[0] ? args[0].toLocaleLowerCase() : null;
                     return filter ? value.filter(function (event) {
-                        return event.name.toLocaleLowerCase().indexOf(filter) != -1;
+                        return event.name.toLocaleLowerCase().indexOf(filter) !== -1;
                     }) : value;
                 };
                 EventFilterPipe = __decorate([

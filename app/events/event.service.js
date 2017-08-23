@@ -24,15 +24,18 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                 Observable_1 = Observable_1_1;
             }],
         execute: function() {
+            // decorator only really needed if there is a service injected into this one 
             EventService = (function () {
+                // gives a variable of _http type 
                 function EventService(_http) {
                     this._http = _http;
-                    this._eventUrl = 'https://localeventsapp-alohacode.c9users.io/data.json';
+                    this._eventUrl = 'https://angular-jamiedaniell.c9users.io/data.json';
                 }
+                // returns an array of events 
                 EventService.prototype.getEvents = function () {
-                    return this._http.get(this._eventUrl)
-                        .map(function (response) { return response.json(); })
-                        .do(function (data) { return console.log("All: " + JSON.stringify(data)); })
+                    return this._http.get(this._eventUrl) // get the events array
+                        .map(function (response) { return response.json(); }) // map the results to an array
+                        .do(function (data) { return console.log('All: ' + JSON.stringify(data)); })
                         .catch(this.handleError);
                 };
                 EventService.prototype.handleError = function (error) {
@@ -40,6 +43,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable'], function(
                     return Observable_1.Observable.throw(error.json().error || 'Server error');
                 };
                 EventService = __decorate([
+                    // needed to asncrounously get data 
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], EventService);

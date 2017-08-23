@@ -18,13 +18,23 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
+            // thumb directive 
+            // give template 
+            // give style 
             ThumbComponent = (function () {
                 function ThumbComponent() {
+                    // events are the only way to pass information to the outer/containing component
+                    // event emitter can send an error <generic> defines the type of event
+                    // @output allows container to expose the info defined also
                     this.ratingClicked = new core_1.EventEmitter();
                 }
+                // runs when the file is changed 
+                // fires when @input property is changed
                 ThumbComponent.prototype.ngOnChanges = function () {
                     this.thumbWidth = this.rating * 86 / 5;
                 };
+                // from above the ratingClicked event emitter sends a string back to the outer coponent ( Event-list.component.ts)
+                // insert the rating form the component 
                 ThumbComponent.prototype.onClick = function () {
                     this.ratingClicked.emit("The rating " + this.rating + " was clicked.");
                 };

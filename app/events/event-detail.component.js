@@ -22,6 +22,9 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
             }],
         execute: function() {
             EventDetailComponent = (function () {
+                // _router instance created 
+                // when class is created constructor runs and lets the id be shown 
+                // also the id is taken from the router 
                 function EventDetailComponent(_routeParams, _router) {
                     this._routeParams = _routeParams;
                     this._router = _router;
@@ -29,6 +32,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                     var id = this._routeParams.get('id');
                     this.pageTitle += ": " + id;
                 }
+                // if function called router navigates back to events
                 EventDetailComponent.prototype.onBack = function () {
                     this._router.navigate(['Events']);
                 };
